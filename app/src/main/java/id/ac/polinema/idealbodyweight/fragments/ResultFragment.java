@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -22,6 +23,9 @@ import id.ac.polinema.idealbodyweight.R;
  */
 public class ResultFragment extends Fragment {
 
+    private String brocaIndex;
+    private String bodyMassIndex;
+
     private String information;
 
     private OnFragmentInteractionListener mListener;
@@ -34,6 +38,7 @@ public class ResultFragment extends Fragment {
         this.information = information;
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,13 +50,7 @@ public class ResultFragment extends Fragment {
         tryAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (mListener != null) {
-                    mListener.onTryAgainButtonClicked("BrocaIndex");
-                }
-                if (mListener != null) {
-                    mListener.onTryAgainButtonClicked("BodyMassIndex");
-                }
+                mListener.onTryAgainButtonClicked(brocaIndex, bodyMassIndex);
             }
         });
         return  view;
@@ -87,7 +86,7 @@ public class ResultFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onTryAgainButtonClicked(String tag);
+        void onTryAgainButtonClicked(String brocaIndex, String bodyMassIndex);
         void onFragmentInteraction(Uri uri);
     }
 }
