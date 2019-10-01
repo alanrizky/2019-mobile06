@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import id.ac.polinema.idealbodyweight.fragments.AboutFragment;
+import id.ac.polinema.idealbodyweight.fragments.BodyMassIndexFragment;
 import id.ac.polinema.idealbodyweight.fragments.BrocaIndexFragment;
 import id.ac.polinema.idealbodyweight.fragments.MenuFragment;
 import id.ac.polinema.idealbodyweight.fragments.ResultFragment;
@@ -16,18 +17,21 @@ import id.ac.polinema.idealbodyweight.fragments.ResultFragment;
 public class MainActivity extends AppCompatActivity implements
 		MenuFragment.OnFragmentInteractionListener,
 		BrocaIndexFragment.OnFragmentInteractionListener,
+		BodyMassIndexFragment.OnFragmentInteractionListener,
 		ResultFragment.OnFragmentInteractionListener {
 
 	// Deklarasikan atribut Fragment di sini
 	private AboutFragment aboutFragment;
 	MenuFragment menuFragment = new MenuFragment();
 	private BrocaIndexFragment brocaIndexFragment;
+    private BodyMassIndexFragment bodyMassIndex;
 	private ResultFragment resultFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		brocaIndexFragment = new BrocaIndexFragment();
-		aboutFragment = AboutFragment.newInstance("Alan Rizky Wardana");
+        bodyMassIndex = new BodyMassIndexFragment();
+        aboutFragment = AboutFragment.newInstance("Alan Rizky Wardana");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		getSupportFragmentManager().beginTransaction()
@@ -64,6 +68,9 @@ public class MainActivity extends AppCompatActivity implements
 
 	@Override
 	public void onBodyMassIndexButtonClicked() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, bodyMassIndex)
+                .commit();
 
 	}
 
@@ -79,6 +86,14 @@ public class MainActivity extends AppCompatActivity implements
 	public void onTryAgainButtonClicked(String tag) {
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.fragment_container, brocaIndexFragment)
+				.commit();
+	}
+
+	@Override
+	public void onCalculateBodyMassIndexClicked(String index) {
+		resultFragment.setInformation(index);
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.fragment_container, resultFragment)
 				.commit();
 	}
 
