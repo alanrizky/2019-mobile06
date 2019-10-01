@@ -45,14 +45,21 @@ public class BrocaIndexFragment extends Fragment {
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String heightString = heightText.getText().toString();
+                int checkedId = genderGroup.getCheckedRadioButtonId();
+                int height = Integer.parseInt(heightString);
+                int gender = (checkedId == R.id.radio_male) ? BrocaIndex.MALE : BrocaIndex.FEMALE;
+                BrocaIndex brocaIndex = new BrocaIndex(gender, height);
+
                 if (mListener != null) {
-                    String heightString = heightText.getText().toString();
-                    int checkedId = genderGroup.getCheckedRadioButtonId();
+                    if(brocaIndex.getIndex() < 0) {
+                        Toast.makeText(getActivity(), "Insert your valid adult human height", Toast.LENGTH_SHORT).show();
+                    }
+
                     if ((checkedId != -1) && !TextUtils.isEmpty(heightString)) {
-                        int height = Integer.parseInt(heightString);
-                        int gender = (checkedId == R.id.radio_male) ? BrocaIndex.MALE : BrocaIndex.FEMALE;
-                        BrocaIndex brocaIndex = new BrocaIndex(gender, height);
+
                         mListener.onCalculateBrocaIndexClicked(brocaIndex.getIndex());
+
                     } else {
                         Toast.makeText(getActivity(), "Please select gender and input your height", Toast.LENGTH_SHORT).show();
                     }
@@ -94,6 +101,5 @@ public class BrocaIndexFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onCalculateBrocaIndexClicked(float index);
-        void onFragmentInteraction(Uri uri);
     }
 }
