@@ -54,7 +54,7 @@ public class BodyMassIndexFragment extends Fragment {
                         BodyMassIndex bodyMassIndex = new BodyMassIndex(height, mass);
                         mListener.onCalculateBodyMassIndexClicked(bodyMassIndex.getIndex());
                     } else {
-                        Toast.makeText(getActivity(), "Please select gender, input your height, and your mass", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Please input your height, and your mass", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
