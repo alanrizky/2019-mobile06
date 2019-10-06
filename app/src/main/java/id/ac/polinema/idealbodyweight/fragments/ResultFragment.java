@@ -50,7 +50,10 @@ public class ResultFragment extends Fragment {
         tryAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener.onTryAgainButtonClicked(brocaIndex, bodyMassIndex);
+                if(mListener != null) {
+                        Fragment f = getFragmentManager().findFragmentById(R.id.fragment_container);
+                        mListener.onTryAgainButtonClicked(f.getTag());
+                }
             }
         });
         return  view;
@@ -86,7 +89,7 @@ public class ResultFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onTryAgainButtonClicked(String brocaIndex, String bodyMassIndex);
+        void onTryAgainButtonClicked(String tag);
         void onFragmentInteraction(Uri uri);
     }
 }
